@@ -1,0 +1,4 @@
+logs/
+__pycache__/
+datasets/
+yolo11n.pt
