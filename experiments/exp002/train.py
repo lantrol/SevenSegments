@@ -2,16 +2,20 @@ from pathlib import Path
 
 from ultralytics import YOLO
 
-# Default training
+# Reduced Augments and bigger model
 
-exp_root = Path("experiments/exp001")
+exp_root = Path("experiments/exp002")
 
 exp_config = {
     "project": exp_root / "logs",
     "seed": 1212,
     "epochs": 40,
-    "patience": 5,
+    "patience": 6,
     "batch": 16,
+    "mosaic": 0.3,
+    "hsv_h": 0.01,
+    "hsv_s": 0.2,
+    "hsv_v": 0.2,
 }
 
 model = YOLO("yolo11n.pt")
