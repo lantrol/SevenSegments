@@ -1,9 +1,10 @@
+from PIL import Image
 from ultralytics import YOLO
 
 
-def predict_image(img_path: str = "sample/OIP.jpg", im_show=False):
+def predict_image(image: str | Image.Image, im_show=False):
     model = YOLO(model="models/best.onnx", task="detect")  # Sample model
-    results = model.predict(img_path)
+    results = model.predict(image)
 
     labels = model.names
     preds = []
@@ -29,13 +30,16 @@ def predict_image(img_path: str = "sample/OIP.jpg", im_show=False):
     # Sort by x coordinate to print the number in order
     print("Predicted reading: ")
     preds.sort(key=lambda x: x[0][0])
+    final_pred = ""
     for i in preds:
-        print(labels[i[1].item()], end="")
-    print()
+        final_pred += str(labels[i[1].item()])
+    print(final_pred)
 
     # Also show the image
     if im_show:
         results[0].show()
+
+    return final_pred
 
 
 if __name__ == "__main__":
